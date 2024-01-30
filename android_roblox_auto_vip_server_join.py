@@ -1,6 +1,6 @@
 import asyncio
 import websockets
-import aiohttp
+import subprocess
 
 async def handle_client(websocket, path):
     try:
@@ -9,9 +9,8 @@ async def handle_client(websocket, path):
 
             if message == 'connect-to-vip-server':
                 print("Opening Google.com")
-                async with aiohttp.ClientSession() as session:
-                    async with session.get('https://www.google.com') as response:
-                        print(f"Google.com response status: {response.status}")
+                # Отправляем запрос на Google.com
+                subprocess.run(['termux-open-url', 'https://www.google.com'])
 
     except websockets.exceptions.ConnectionClosedError:
         print(f"Client disconnected: {websocket.remote_address}")
