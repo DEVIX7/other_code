@@ -5,10 +5,10 @@ import subprocess
 def colored_text(text, color):
     colors = {
         'reset': '\033[0m',
-        'info': '\033[94m',      # Blue
-        'warn': '\033[93m',      # Yellow
+        'info': '\033[94m',         # Blue
+        'warn': '\033[93m',         # Yellow
         'success': '\033[92m',      # Bright Green
-        'bright_cyan': '\033[96m' # Bright Cyan
+        'bright_cyan': '\033[96m'   # Bright Cyan
     }
     return f"{colors[color]}{text}{colors['reset']}"
 
