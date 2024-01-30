@@ -1,14 +1,7 @@
-import subprocess
+import asyncio
+import websockets
+import aiohttp
 
-required_modules = ['asyncio', 'websockets', 'webbrowser']
-
-for module in required_modules:
-    try:
-        __import__(module)
-    except ImportError:
-        print(f"Module '{module}' not found. Installing...")
-        subprocess.run(['pkg', 'install', f'python-{module.lower()}'], check=True)
-        
 async def handle_client(websocket, path):
     try:
         async for message in websocket:
@@ -16,8 +9,9 @@ async def handle_client(websocket, path):
 
             if message == 'connect-to-vip-server':
                 print("Opening Google.com")
-
-                subprocess.run(['am', 'start', '--user', '0', '-a', 'android.intent.action.VIEW', '-d', 'https://www.google.com'], check=True)
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.google.com') as response:
+                        print(f"Google.com response status: {response.status}")
 
     except websockets.exceptions.ConnectionClosedError:
         print(f"Client disconnected: {websocket.remote_address}")
