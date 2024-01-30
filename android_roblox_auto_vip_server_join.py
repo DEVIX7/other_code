@@ -1,6 +1,7 @@
 import asyncio
 import websockets
 import subprocess
+import os
 
 def colored_text(text, color):
     colors = {
@@ -18,22 +19,32 @@ async def handle_client(websocket, path):
             print(f"Received message from client: {message}")
 
             if message == 'connect-to-vip-server':
-                print(colored_text("Opening link...", 'info'))
-                subprocess.run(['xdg-open', 'https://www.roblox.com/games/3260590327?privateServerLinkCode=45922069851868244203416146497318'])
 
+                pid_result = subprocess.run(['pgrep', '-f', 'com.roblox.client'], stdout=subprocess.PIPE, text=True)
+                pid = pid_result.stdout.strip()
+
+                if pid:
+                    print(colored_text(f"Closing application with PID: {pid}", 'warn'))
+                    subprocess.run(['kill', pid])
+
+                os.sleep(5)
+
+                print(colored_text("Opening link...", 'info'))
+                subprocess.run(['termux-open-url', 'https://www.roblox.com/games/3260590327?privateServerLinkCode=45922069851868244203416146497318'])
+                
+                
 
     except websockets.exceptions.ConnectionClosedError:
         print(f"Client disconnected: {websocket.remote_address}")
 
 if __name__ == "__main__":
-    subprocess.run(['clear'])
     print(colored_text('''
    ___  _____   _______  ______
   / _ \/ __/ | / /  _/ |/_/_  /
  / // / _/ | |/ // /_>  <  / / 
 /____/___/ |___/___/_/|_| /_/ 
      github.com/DEVIX7
-    ''', 'bright_cyan'))
+    ''', 'success'))
     
     try:
         import websockets
