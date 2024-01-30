@@ -28,7 +28,7 @@ async def handle_client(websocket, path):
                     print(colored_text(f"Closing application with PID: {pid}", 'warn'))
                     subprocess.run(['kill', pid])
 
-                time.sleep(5)  # Заменено на правильный вызов функции sleep из модуля time
+                time.sleep(5)
 
                 print(colored_text("Opening link...", 'info'))
                 subprocess.run(['termux-open-url', 'https://www.roblox.com/games/3260590327?privateServerLinkCode=45922069851868244203416146497318'])
