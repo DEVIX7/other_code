@@ -2,6 +2,7 @@ import asyncio
 import websockets
 import subprocess
 import os
+import time
 
 def colored_text(text, color):
     colors = {
@@ -27,25 +28,24 @@ async def handle_client(websocket, path):
                     print(colored_text(f"Closing application with PID: {pid}", 'warn'))
                     subprocess.run(['kill', pid])
 
-                os.sleep(5)
+                time.sleep(5)  # Заменено на правильный вызов функции sleep из модуля time
 
                 print(colored_text("Opening link...", 'info'))
                 subprocess.run(['termux-open-url', 'https://www.roblox.com/games/3260590327?privateServerLinkCode=45922069851868244203416146497318'])
-                
-                
 
     except websockets.exceptions.ConnectionClosedError:
         print(f"Client disconnected: {websocket.remote_address}")
 
 if __name__ == "__main__":
+    subprocess.run(['clear'])
     print(colored_text('''
    ___  _____   _______  ______
   / _ \/ __/ | / /  _/ |/_/_  /
  / // / _/ | |/ // /_>  <  / / 
 /____/___/ |___/___/_/|_| /_/ 
      github.com/DEVIX7
-    ''', 'success'))
-    
+    ''', 'bright_cyan'))
+
     try:
         import websockets
     except ImportError:
