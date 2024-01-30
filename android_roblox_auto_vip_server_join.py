@@ -24,7 +24,7 @@ async def handle_client(websocket, path):
                 pid = pid_result.stdout.strip()
 
                 if pid:
-                    print(colored_text(f"Closing application with PID: {pid}", 'warn'))
+                    print(colored_text(f"Closing application roblox...", 'warn'))
                     subprocess.run(['kill', pid])
 
                 time.sleep(5)
