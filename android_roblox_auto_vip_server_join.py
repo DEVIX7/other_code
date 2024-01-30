@@ -1,16 +1,15 @@
 import asyncio
 import websockets
 import subprocess
-import os
 import time
 
 def colored_text(text, color):
     colors = {
         'reset': '\033[0m',
-        'info': '\033[94m',         # Blue
-        'warn': '\033[93m',         # Yellow
-        'success': '\033[92m',      # Bright Green
-        'bright_cyan': '\033[96m'   # Bright Cyan
+        'info': '\033[94m',
+        'warn': '\033[93m',
+        'success': '\033[92m',
+        'bright_cyan': '\033[96m'
     }
     return f"{colors[color]}{text}{colors['reset']}"
 
@@ -21,7 +20,7 @@ async def handle_client(websocket, path):
 
             if message == 'connect-to-vip-server':
 
-                pid_result = subprocess.run(['pgrep', '-f', 'com.roblox.client'], stdout=subprocess.PIPE, text=True)
+                pid_result = subprocess.run(['pgrep', '-o', '-f', 'com.roblox.client'], stdout=subprocess.PIPE, text=True)
                 pid = pid_result.stdout.strip()
 
                 if pid:
