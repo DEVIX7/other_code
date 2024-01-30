@@ -8,9 +8,9 @@ async def handle_client(websocket, path):
             print(f"Received message from client: {message}")
 
             if message == 'connect-to-vip-server':
-                print("Opening Google.com")
+                print("Opening link...")
                 # Отправляем запрос на Google.com
-                subprocess.run(['termux-open-url', 'https://www.google.com'])
+                subprocess.run(['termux-open-url', 'https://www.roblox.com/games/3260590327?privateServerLinkCode=45922069851868244203416146497318'])
 
     except websockets.exceptions.ConnectionClosedError:
         print(f"Client disconnected: {websocket.remote_address}")
