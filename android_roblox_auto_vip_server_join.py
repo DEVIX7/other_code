@@ -16,15 +16,16 @@ def colored_text(text, color):
 async def handle_client(websocket, path):
     try:
         async for message in websocket:
-            print(f"Received message from client: {message}")
+            #print(f"Received message from client: {message}")
 
             if message == 'connect-to-vip-server':
 
                 pid_result = subprocess.run(['pgrep', '-o', '-f', 'com.roblox.client'], stdout=subprocess.PIPE, text=True)
                 pid = pid_result.stdout.strip()
 
+                print(colored_text("Closing application roblox...", 'warn'))
+
                 if pid:
-                    print(colored_text(f"Closing application roblox...", 'warn'))
                     subprocess.run(['kill', pid])
 
                 time.sleep(5)
